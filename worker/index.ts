@@ -28,6 +28,10 @@ interface ExecutionContext {
 
 const worker = {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
+    for (const [name, value] of Object.entries(env)) {
+      if (typeof value === "string") process.env[name] = value;
+    }
+
     const url = new URL(request.url);
 
     if (url.pathname === "/_vinext/image") {
