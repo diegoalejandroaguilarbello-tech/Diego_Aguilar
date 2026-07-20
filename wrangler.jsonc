@@ -1,0 +1,17 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "diego-aguilar-web",
+  "main": "worker/index.ts",
+  "compatibility_date": "2026-07-16",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "diego-aguilar-db",
+      "database_id": "3e7bdd00-f58f-4125-89c0-d119b19bb02f",
+      "migrations_dir": "drizzle"
+    }
+  ]
+}
