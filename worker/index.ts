@@ -28,6 +28,7 @@ interface ExecutionContext {
 
 const worker = {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
+    (globalThis as typeof globalThis & { __DA_RUNTIME_ENV__?: Record<string, unknown> }).__DA_RUNTIME_ENV__ = env as unknown as Record<string, unknown>;
     for (const [name, value] of Object.entries(env)) {
       if (typeof value === "string") process.env[name] = value;
     }

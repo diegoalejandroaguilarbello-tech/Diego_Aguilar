@@ -1,4 +1,8 @@
 export async function getRuntimeEnvValue(name: string): Promise<string> {
+  const runtimeEnv = (globalThis as typeof globalThis & { __DA_RUNTIME_ENV__?: Record<string, unknown> }).__DA_RUNTIME_ENV__;
+  const runtimeValue = runtimeEnv?.[name];
+  if (typeof runtimeValue === "string" && runtimeValue.trim()) return runtimeValue.trim();
+
   try {
     const { env } = await import("cloudflare:workers");
     const value = (env as unknown as Record<string, unknown>)[name];
