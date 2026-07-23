@@ -40,9 +40,6 @@ export default function TurnstileWidget({ onToken }: { onToken: (token: string) 
           sitekey: config.siteKey,
           theme: "auto",
           size: "flexible",
-          appearance: "always",
-          execution: "render",
-          language: "es",
           callback: (token: string) => { onToken(token); setStatus("ready"); },
           "expired-callback": () => { onToken(""); setStatus("loading"); },
           "error-callback": () => { onToken(""); setStatus("error"); },
@@ -58,17 +55,9 @@ export default function TurnstileWidget({ onToken }: { onToken: (token: string) 
 
   return (
     <div className="turnstileWrap">
-      <div className="turnstileHeading">
-        <span aria-hidden="true">✓</span>
-        <div>
-          <strong>Verifica que eres humano</strong>
-          <small>Completa la comprobación de seguridad para continuar.</small>
-        </div>
-      </div>
-      <div className="turnstileContainer" ref={container} />
-      {status === "loading" && <small className="turnstileStatus">Preparando verificación de seguridad…</small>}
-      {status === "ready" && <small className="turnstileSuccess">✓ Verificación completada correctamente.</small>}
-      {status === "local" && <small className="turnstileSuccess">✓ Verificación local activa.</small>}
+      <div ref={container} />
+      {status === "loading" && <small>Preparando verificación de seguridad…</small>}
+      {status === "local" && <small>Verificación local activa.</small>}
       {status === "unconfigured" && <small className="turnstileError">El cotizador requiere configurar Turnstile antes de publicarlo.</small>}
       {status === "error" && <small className="turnstileError">No se pudo cargar la verificación. Recarga la página.</small>}
     </div>
